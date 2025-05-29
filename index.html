@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Портфолио</title>
+    <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+    <link rel="stylesheet" href="/public/styles.css" />
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin />
+    <link
+      rel="stylesheet"
+      as="style"
+      onload="this.rel='stylesheet'"
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;700;900&family=Work+Sans:wght@400;700;900&display=swap"
+    />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+      body {
+        font-family: 'Work Sans', 'Noto Sans', sans-serif;
+        background: linear-gradient(120deg, #e0eafc 0%, #cfdef3 100%);
+      }
+    </style>
+  </head>
+  <body class="min-h-screen font-sans">
+    <div class="flex flex-col min-h-screen">
+      <!-- Header -->
+      <header class="flex items-center justify-between border-b border-[#ededed] px-8 py-6 min-h-[50px] bg-white/90 shadow-sm backdrop-blur-sm relative">
+        <div class="flex-1"></div>
+        <!-- Центрированное меню -->
+        <nav class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 flex gap-7">
+          <a class="flex items-center justify-center whitespace-nowrap text-sm font-semibold hover:text-blue-700 hover:bg-blue-50 rounded-xl px-4 py-2 transition"
+            href="index.html">Обо мне</a>
+          <a class="flex items-center justify-center whitespace-nowrap text-sm font-semibold hover:text-blue-700 hover:bg-blue-50 rounded-xl px-4 py-2 transition"
+            href="modules.html">Учебные модули</a>
+          <a class="flex items-center justify-center whitespace-nowrap text-sm font-semibold hover:text-blue-700 hover:bg-blue-50 rounded-xl px-4 py-2 transition"
+            href="graduate.html">Дипломная работа</a>
+          <a class="flex items-center justify-center whitespace-nowrap text-sm font-semibold hover:text-blue-700 hover:bg-blue-50 rounded-xl px-4 py-2 transition"
+            href="cours_work.html">Курсовые работы</a>
+          <a class="flex items-center justify-center whitespace-nowrap text-sm font-semibold hover:text-blue-700 hover:bg-blue-50 rounded-xl px-4 py-2 transition"
+            href="practical work.html">Практические работы</a>
+        </nav>
+      </header>
+
+      <!-- Content -->
+      <main class="flex-1 flex justify-center items-center px-4 py-8">
+        <section class="bg-white/90 p-10 rounded-3xl shadow-2xl max-w-xl w-full text-center transition-all duration-300 ring-1 ring-[#e2e8f0] hover:ring-blue-200">
+          <img src="assets/avatar.jpg" alt="Profile"
+               class="mx-auto w-36 h-36 rounded-full object-cover mb-6 shadow-lg ring-4 ring-blue-100" />
+          <h1 class="text-3xl font-extrabold text-[#18181b] mb-2 tracking-tight">Воложанин Владислав</h1>
+          <!-- <p class="text-blue-700 text-base font-medium mb-1">Senior QA Engineer в финтех-компании</p> -->
+          <p class="text-neutral-500 text-base mb-2">09.03.01 Информатика и вычислительная техника</p>
+          <p class="text-[#18181b] mb-6 leading-relaxed">
+            Меня зовут Владислав. Я работаю QA-инженером в финтех-компании и получаю высшее образование по направлению «Информатика и вычислительная техника».
+            Свою профессиональную деятельность я посвящаю обеспечению качества программного обеспечения, тестированию.
+            Каждый рабочий день для меня — это новые задачи, поиск решений и постоянное развитие. Мне нравится разбираться в сложных системах, оптимизировать процессы и внедрять лучшие практики качества.
+            Я стремлюсь к глубокому пониманию технологий, интересуюсь машинным обучением и современными IT-инструментами, которые позволяют делать продукты надёжнее и эффективнее.
+            Я всегда открыт новым проектам, общению и обмену опытом.
+          </p>
+
+          <div class="flex justify-center gap-5">
+            <a href="mailto:rikimain@mail.ru" class="inline-flex items-center gap-1 px-4 py-2 rounded-lg bg-neutral-100 text-neutral-500 hover:text-blue-700 hover:bg-blue-50 font-medium shadow transition">Email</a>
+            <a href="https://github.com/rikigg" class="inline-flex items-center gap-1 px-4 py-2 rounded-lg bg-neutral-100 text-neutral-500 hover:text-blue-700 hover:bg-blue-50 font-medium shadow transition" target="_blank">GitHub</a>
+            <a href="https://linkedin.com/in/sarah" class="inline-flex items-center gap-1 px-4 py-2 rounded-lg bg-neutral-100 text-neutral-500 hover:text-blue-700 hover:bg-blue-50 font-medium shadow transition" target="_blank">CV</a>
+          </div>
+        </section>
+      </main>
+
+      <footer class="w-full mt-auto bg-white/80 backdrop-blur shadow-inner border-t border-[#ededed]">
+      <div class="max-w-xl mx-auto px-6 py-4 flex flex-col sm:flex-row items-center justify-between text-neutral-400 text-sm">
+        <span>©2025 Web-Portfolio</span>
+        <span class="font-semibold text-[#18181b] mt-1 sm:mt-0">Volozhanin Vladislav</span>
+      </div>
+    </footer>
+
+    </div>
+  </body>
+</html>
