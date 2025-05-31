@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <title>Практические работы</title>
+  <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+  <link rel="stylesheet" href="/public/styles.css" />
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin />
+  <link
+    rel="stylesheet"
+    as="style"
+    onload="this.rel='stylesheet'"
+    href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;700;900&family=Work+Sans:wght@400;700;900&display=swap"
+  />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    body {
+      font-family: 'Work Sans', 'Noto Sans', sans-serif;
+      background: #e6edf7 !important;
+    }
+    body::-webkit-scrollbar { width: 0; background: transparent; }
+    .svg-top { position:absolute; left:0; top:0; z-index:1; }
+    .svg-bottom { position:absolute; right:0; bottom:0; z-index:1; }
+    .nav-link {
+      transition: color 0.15s, background 0.22s, box-shadow 0.22s;
+      box-shadow: 0 1px 0 0 #dbeafe00;
+    }
+    .nav-link:hover, .nav-link:focus {
+      color: #3087e3 !important;
+      background: #e6edf7;
+      box-shadow: 0 3px 18px -7px #5bb6ff80;
+      text-decoration: none;
+      outline: none;
+    }
+    nav::-webkit-scrollbar { display: none; }
+    nav { -ms-overflow-style: none; scrollbar-width: none; }
+    .glow {
+      box-shadow: 0 0 0 0 #5bb6ff70;
+      transition: box-shadow 0.2s;
+    }
+    .glow:hover {
+      box-shadow: 0 0 8px 2px #5bb6ff70, 0 2px 8px 0 #3087e380;
+    }
+    .burger {
+      width: 32px;
+      height: 32px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 5px;
+    }
+    .burger span {
+      display: block;
+      width: 22px;
+      height: 3px;
+      background: #3087e3;
+      border-radius: 2px;
+      transition: all 0.25s;
+    }
+    .burger.open span:nth-child(1) {
+      transform: translateY(8px) rotate(45deg);
+    }
+    .burger.open span:nth-child(2) {
+      opacity: 0;
+    }
+    .burger.open span:nth-child(3) {
+      transform: translateY(-8px) rotate(-45deg);
+    }
+    @media (max-width: 768px) {
+      .main-menu {
+        display: none !important;
+      }
+      .burger {
+        display: flex !important;
+      }
+    }
+    @media (min-width: 769px) {
+      #mobile-menu { display: none !important; }
+      .main-menu { display: flex !important; }
+      .burger { display: none !important; }
+    }
+  </style>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.net.min.js"></script>
+</head>
+<body class="min-h-screen font-sans relative bg-[#e6edf7]">
+  <!-- VANTA фон -->
+  <div id="vanta-bg" class="fixed inset-0 -z-10 w-full h-full"></div>
+
+  <!-- SVG Декор -->
+  <svg class="svg-top" width="200" height="110" fill="none" viewBox="0 0 200 110">
+    <path d="M0,0 C100,40 160,30 200,110" stroke="#5bb6ff" stroke-width="3" fill="none" opacity="0.18"/>
+  </svg>
+  <svg class="svg-bottom" width="220" height="130" fill="none" viewBox="0 0 220 130">
+    <path d="M220,130 C140,60 80,90 0,0" stroke="#3087e3" stroke-width="3" fill="none" opacity="0.14"/>
+  </svg>
+
+  <div class="flex flex-col min-h-screen relative z-10">
+    <!-- Header -->
+    <header class="w-full bg-white/90 border-b border-[#cfe3fa] shadow-sm backdrop-blur-[6px] z-20">
+      <div class="max-w-7xl mx-auto flex items-center justify-center px-2 sm:px-6 py-3 relative">
+        <!-- Навигация (desktop, строго по центру) -->
+        <nav class="main-menu flex items-center justify-center gap-x-3 gap-y-2
+          overflow-x-auto whitespace-nowrap scrollbar-hide">
+          <a href="index.html" class="nav-link text-sm sm:text-base font-semibold text-[#18181b] px-3 py-2 rounded-xl">Обо мне</a>
+          <a href="modules.html" class="nav-link text-sm sm:text-base font-semibold text-[#18181b] px-3 py-2 rounded-xl">Учебные модули</a>
+          <a href="graduate.html" class="nav-link text-sm sm:text-base font-semibold text-[#18181b] px-3 py-2 rounded-xl">Дипломная работа</a>
+          <a href="cours_work.html" class="nav-link text-sm sm:text-base font-semibold text-[#18181b] px-3 py-2 rounded-xl">Курсовые работы</a>
+          <a href="practical work.html" class="nav-link text-sm sm:text-base font-semibold text-[#18181b] px-3 py-2 rounded-xl">Практические работы</a>
+        </nav>
+        <!-- Бургер-меню (mobile only, всегда справа) -->
+        <button id="burger-btn" class="burger md:hidden ml-auto" aria-label="Открыть меню" type="button">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+      <!-- Мобильное меню -->
+      <div id="mobile-menu" class="fixed inset-0 bg-[#e6edf7]/80 z-50 flex-col items-center justify-center hidden">
+        <div class="bg-white/95 backdrop-blur-lg shadow-xl rounded-2xl py-5 px-6 mx-6 my-24 flex flex-col gap-3 w-[90vw] max-w-xs border">
+          <div class="flex items-center justify-between mb-2">
+            <span class="text-base font-bold text-[#3087e3] select-none">Меню</span>
+            <button id="close-menu" class="w-8 h-8 flex items-center justify-center rounded hover:bg-blue-100 transition" aria-label="Закрыть меню" type="button">
+              <svg class="w-6 h-6 text-[#3087e3]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+              </svg>
+            </button>
+          </div>
+          <a href="index.html" class="nav-link text-base font-semibold text-[#18181b] px-3 py-2 rounded-xl">Обо мне</a>
+          <a href="modules.html" class="nav-link text-base font-semibold text-[#18181b] px-3 py-2 rounded-xl">Учебные модули</a>
+          <a href="graduate.html" class="nav-link text-base font-semibold text-[#18181b] px-3 py-2 rounded-xl">Дипломная работа</a>
+          <a href="cours_work.html" class="nav-link text-base font-semibold text-[#18181b] px-3 py-2 rounded-xl">Курсовые работы</a>
+          <a href="practical work.html" class="nav-link text-base font-semibold text-[#18181b] px-3 py-2 rounded-xl">Практические работы</a>
+        </div>
+      </div>
+    </header>
+    <!-- /Header -->
+
+    <!-- Content -->
+    <main class="flex-1 flex flex-col justify-center items-center px-2 sm:px-4 py-6 sm:py-8 relative z-10">
+      <section class="relative bg-[#f5f7fb] p-5 sm:p-10 rounded-3xl shadow-2xl max-w-full sm:max-w-4xl w-full text-center ring-1 ring-[#d4e7f8] hover:ring-[#5bb6ff] transition-all duration-300 overflow-hidden">
+        <!-- Декоративные партиклы -->
+        <span class="absolute left-3 top-2 w-6 h-6 rounded-full bg-[#5bb6ff]/50 blur-md animate-pulse z-10"></span>
+        <span class="absolute right-3 bottom-3 w-10 h-10 rounded-full bg-[#5bb6ff]/20 blur-2xl animate-pulse z-10"></span>
+
+        <h1 class="text-2xl sm:text-3xl font-extrabold text-[#18181b] mb-8 tracking-tight">Практические работы</h1>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-8">
+          <!-- Карточка 1 -->
+          <div class="bg-[#f5f6fa] p-6 rounded-2xl shadow-md hover:shadow-2xl transition-all duration-300 h-64 w-full flex flex-col items-center group cursor-pointer">
+            <a href="https://github.com/rikigg/portfolio-/blob/main/Практики/Производственная%20(преддипломная)%2C%208%20сем/отчет%20по%20практике%204.pdf" class="flex flex-col items-center justify-center w-full h-full text-center group">
+              <img
+                src="assets/практика1.png"
+                alt="Производственная практика (преддипломная)"
+                class="max-w-full max-h-32 sm:max-h-36 md:max-h-40 object-contain rounded-xl mb-4 shadow group-hover:scale-105 transition-transform duration-300"
+              />
+              <span class="text-sm sm:text-sm md:text-base text-[#18181b] group-hover:text-blue-700 group-hover:underline transition-colors duration-200 font-medium tracking-tight">
+                Производственная практика (преддипломная)
+              </span>
+            </a>
+          </div>
+          <!-- Карточка 2 -->
+          <div class="bg-[#f5f6fa] p-6 rounded-2xl shadow-md hover:shadow-2xl transition-all duration-300 h-64 w-full flex flex-col items-center group cursor-pointer">
+            <a href="https://github.com/rikigg/portfolio-/blob/main/Практики/Производственная%20(научно-исследовательская%20работа)%2C%207%20сем/отчет%20НИР%20Воложанин%20В.О.pdf" class="flex flex-col items-center justify-center w-full h-full text-center group">
+              <img
+                src="assets/практика2.png"
+                alt="Производственная (научно-исследовательская работа)"
+                class="max-w-full max-h-32 sm:max-h-36 md:max-h-40 object-contain rounded-xl mb-4 shadow group-hover:scale-105 transition-transform duration-300"
+              />
+              <span class="text-base sm:text-lg md:text-base text-[#18181b] group-hover:text-blue-700 group-hover:underline transition-colors duration-200 font-medium tracking-tight">
+                Производственная (научно-исследовательская работа)
+              </span>
+            </a>
+          </div>
+          <!-- Карточка 3 -->
+          <div class="bg-[#f5f6fa] p-6 rounded-2xl shadow-md hover:shadow-2xl transition-all duration-300 h-64 w-full flex flex-col items-center group cursor-pointer">
+            <a href="https://github.com/rikigg/portfolio-/blob/main/Практики/Производственная%20(технологическая%20(проектно-технологическая))%2C%206%20сем/Воложанин%20В.О.%20отчет.pdf" class="flex flex-col items-center justify-center w-full h-full text-center group">
+              <img
+                src="assets/практика3.png"
+                alt="Производственная (технологическая (проектно-технологическая))"
+                class="max-w-full max-h-32 sm:max-h-36 md:max-h-40 object-contain rounded-xl mb-4 shadow group-hover:scale-105 transition-transform duration-300"
+              />
+              <span class="text-base sm:text-lg md:text-base text-[#18181b] group-hover:text-blue-700 group-hover:underline transition-colors duration-200 font-medium tracking-tight">
+                Производственная (технологическая (проектно-технологическая))
+              </span>
+            </a>
+          </div>
+          <!-- Карточка 4 -->
+          <div class="bg-[#f5f6fa] p-6 rounded-2xl shadow-md hover:shadow-2xl transition-all duration-300 h-64 w-full flex flex-col items-center group cursor-pointer">
+            <a href="https://github.com/riki163/PracticeSep-2022/blob/main/Документы/отчет_проектно-технологическая.pdf" class="flex flex-col items-center justify-center w-full h-full text-center group">
+              <img
+                src="assets/практика4.png"
+                alt="Учебная (технологическая (проектно-технологическая))"
+                class="max-w-full max-h-32 sm:max-h-36 md:max-h-40 object-contain rounded-xl mb-4 shadow group-hover:scale-105 transition-transform duration-300"
+              />
+              <span class="text-base sm:text-lg md:text-base text-[#18181b] group-hover:text-blue-700 group-hover:underline transition-colors duration-200 font-medium tracking-tight">
+                Учебная (технологическая (проектно-технологическая))
+              </span>
+            </a>
+          </div>
+          <!-- Карточка 5 -->
+          <div class="bg-[#f5f6fa] p-6 rounded-2xl shadow-md hover:shadow-2xl transition-all duration-300 h-64 w-full flex flex-col items-center group cursor-pointer">
+            <a href="https://github.com/rikigg/portfolio-/tree/main/Практики/Учебная%20(эксплуатационная)%2C%202%20сем" class="flex flex-col items-center justify-center w-full h-full text-center group">
+              <img
+                src="assets/практика5.png"
+                alt="Учебная (эксплуатационная)"
+                class="max-w-full max-h-32 sm:max-h-36 md:max-h-40 object-contain rounded-xl mb-4 shadow group-hover:scale-105 transition-transform duration-300"
+              />
+              <span class="text-base sm:text-lg md:text-base text-[#18181b] group-hover:text-blue-700 group-hover:underline transition-colors duration-200 font-medium tracking-tight">
+                Учебная (эксплуатационная)
+              </span>
+            </a>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="relative z-20 mt-auto bg-[#f5f7fb] backdrop-blur-[6px] border-t border-[#cfe3fa] shadow-inner">
+      <div class="max-w-full sm:max-w-xl mx-auto px-4 sm:px-6 py-4 flex flex-col sm:flex-row items-center justify-between text-[#6b7280] text-sm">
+        <div class="flex items-center gap-2">
+          <svg class="w-5 h-5 text-[#5bb6ff]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" /><path d="M9 12l2 2 4-4" /></svg>
+          <span>©2025 Web-Portfolio</span>
+        </div>
+        <span class="font-semibold text-[#18181b] mt-1 sm:mt-0">Volozhanin Vladislav</span>
+      </div>
+      <div class="absolute left-0 right-0 top-0 h-[2px] bg-gradient-to-r from-transparent via-[#cfe3fa] to-[#5bb6ff] opacity-40 pointer-events-none"></div>
+    </footer>
+  </div>
+
+  <!-- JS: бургер-меню -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const burgerBtn = document.getElementById('burger-btn');
+      const mobileMenu = document.getElementById('mobile-menu');
+      const closeBtn = document.getElementById('close-menu');
+      burgerBtn.onclick = function () {
+        burgerBtn.classList.toggle('open');
+        mobileMenu.classList.toggle('hidden');
+        document.body.classList.toggle('overflow-hidden');
+      };
+      closeBtn.onclick = function () {
+        burgerBtn.classList.remove('open');
+        mobileMenu.classList.add('hidden');
+        document.body.classList.remove('overflow-hidden');
+      };
+      mobileMenu.addEventListener('click', e => {
+        if (e.target === mobileMenu) {
+          burgerBtn.classList.remove('open');
+          mobileMenu.classList.add('hidden');
+          document.body.classList.remove('overflow-hidden');
+        }
+      });
+    });
+  </script>
+  <script>
+    VANTA.NET({
+      el: "#vanta-bg",
+      mouseControls: true,
+      touchControls: true,
+      minHeight: 200.00,
+      minWidth: 200.00,
+      scale: 1.0,
+      scaleMobile: 1.0,
+      color: 0x5bb6ff,
+      backgroundColor: 0xe6edf7,
+      points: 13.0,
+      maxDistance: 21.0,
+      spacing: 17.0,
+      showDots: false
+    });
+  </script>
+</body>
+</html>

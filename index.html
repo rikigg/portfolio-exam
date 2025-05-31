@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <title>Портфолио — Воложанин Владислав</title>
+  <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+  <link rel="stylesheet" href="/public/styles.css" />
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin />
+  <link
+    rel="stylesheet"
+    as="style"
+    onload="this.rel='stylesheet'"
+    href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;700;900&family=Work+Sans:wght@400;700;900&display=swap"
+  />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    body {
+      font-family: 'Work Sans', 'Noto Sans', sans-serif;
+      background: #e6edf7 !important;
+    }
+    body::-webkit-scrollbar { width: 0; background: transparent; }
+    .svg-top { position:absolute; left:0; top:0; z-index:1; }
+    .svg-bottom { position:absolute; right:0; bottom:0; z-index:1; }
+    .nav-link {
+      transition: color 0.15s, background 0.22s, box-shadow 0.22s;
+      box-shadow: 0 1px 0 0 #dbeafe00;
+    }
+    .nav-link:hover, .nav-link:focus {
+      color: #3087e3 !important;
+      background: #e6edf7;
+      box-shadow: 0 3px 18px -7px #5bb6ff80;
+      text-decoration: none;
+      outline: none;
+    }
+    nav::-webkit-scrollbar { display: none; }
+    nav { -ms-overflow-style: none; scrollbar-width: none; }
+    .glow {
+      box-shadow: 0 0 0 0 #5bb6ff70;
+      transition: box-shadow 0.2s;
+    }
+    .glow:hover {
+      box-shadow: 0 0 8px 2px #5bb6ff70, 0 2px 8px 0 #3087e380;
+    }
+    .burger {
+      width: 32px;
+      height: 32px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 5px;
+    }
+    .burger span {
+      display: block;
+      width: 22px;
+      height: 3px;
+      background: #3087e3;
+      border-radius: 2px;
+      transition: all 0.25s;
+    }
+    .burger.open span:nth-child(1) {
+      transform: translateY(8px) rotate(45deg);
+    }
+    .burger.open span:nth-child(2) {
+      opacity: 0;
+    }
+    .burger.open span:nth-child(3) {
+      transform: translateY(-8px) rotate(-45deg);
+    }
+    @media (max-width: 768px) {
+      .main-menu {
+        display: none !important;
+      }
+      .burger {
+        display: flex !important;
+      }
+    }
+    @media (min-width: 769px) {
+      #mobile-menu { display: none !important; }
+      .main-menu { display: flex !important; }
+      .burger { display: none !important; }
+    }
+  </style>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.net.min.js"></script>
+</head>
+<body class="min-h-screen font-sans relative bg-[#e6edf7]">
+  <!-- VANTA фон -->
+  <div id="vanta-bg" class="fixed inset-0 -z-10 w-full h-full"></div>
+
+  <!-- SVG Декор -->
+  <svg class="svg-top" width="200" height="110" fill="none" viewBox="0 0 200 110">
+    <path d="M0,0 C100,40 160,30 200,110" stroke="#5bb6ff" stroke-width="3" fill="none" opacity="0.18"/>
+  </svg>
+  <svg class="svg-bottom" width="220" height="130" fill="none" viewBox="0 0 220 130">
+    <path d="M220,130 C140,60 80,90 0,0" stroke="#3087e3" stroke-width="3" fill="none" opacity="0.14"/>
+  </svg>
+
+  <div class="flex flex-col min-h-screen relative z-10">
+    <!-- Header -->
+    <header class="w-full bg-white/90 border-b border-[#cfe3fa] shadow-sm backdrop-blur-[6px] z-20">
+      <div class="max-w-7xl mx-auto flex items-center justify-center px-2 sm:px-6 py-3 relative">
+        <!-- Навигация (desktop, строго по центру) -->
+        <nav class="main-menu flex items-center justify-center gap-x-3 gap-y-2
+          overflow-x-auto whitespace-nowrap scrollbar-hide">
+          <a href="index.html" class="nav-link text-sm sm:text-base font-semibold text-[#18181b] px-3 py-2 rounded-xl">Обо мне</a>
+          <a href="modules.html" class="nav-link text-sm sm:text-base font-semibold text-[#18181b] px-3 py-2 rounded-xl">Учебные модули</a>
+          <a href="graduate.html" class="nav-link text-sm sm:text-base font-semibold text-[#18181b] px-3 py-2 rounded-xl">Дипломная работа</a>
+          <a href="cours_work.html" class="nav-link text-sm sm:text-base font-semibold text-[#18181b] px-3 py-2 rounded-xl">Курсовые работы</a>
+          <a href="practical work.html" class="nav-link text-sm sm:text-base font-semibold text-[#18181b] px-3 py-2 rounded-xl">Практические работы</a>
+        </nav>
+        <!-- Бургер-меню (mobile only, всегда справа) -->
+        <button id="burger-btn" class="burger md:hidden ml-auto" aria-label="Открыть меню" type="button">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+      <!-- Мобильное меню -->
+      <div id="mobile-menu" class="fixed inset-0 bg-[#e6edf7]/80 z-50 flex-col items-center justify-center hidden">
+        <div class="bg-white/95 backdrop-blur-lg shadow-xl rounded-2xl py-5 px-6 mx-6 my-24 flex flex-col gap-3 w-[90vw] max-w-xs border">
+          <div class="flex items-center justify-between mb-2">
+            <span class="text-base font-bold text-[#3087e3] select-none">Меню</span>
+            <button id="close-menu" class="w-8 h-8 flex items-center justify-center rounded hover:bg-blue-100 transition" aria-label="Закрыть меню" type="button">
+              <svg class="w-6 h-6 text-[#3087e3]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+              </svg>
+            </button>
+          </div>
+          <a href="index.html" class="nav-link text-base font-semibold text-[#18181b] px-3 py-2 rounded-xl">Обо мне</a>
+          <a href="modules.html" class="nav-link text-base font-semibold text-[#18181b] px-3 py-2 rounded-xl">Учебные модули</a>
+          <a href="graduate.html" class="nav-link text-base font-semibold text-[#18181b] px-3 py-2 rounded-xl">Дипломная работа</a>
+          <a href="cours_work.html" class="nav-link text-base font-semibold text-[#18181b] px-3 py-2 rounded-xl">Курсовые работы</a>
+          <a href="practical work.html" class="nav-link text-base font-semibold text-[#18181b] px-3 py-2 rounded-xl">Практические работы</a>
+        </div>
+      </div>
+    </header>
+    <!-- /Header -->
+
+    <!-- Content -->
+    <main class="flex-1 flex justify-center items-center px-2 sm:px-4 py-6 sm:py-8 relative z-10">
+      <section class="relative bg-[#f5f7fb] p-5 sm:p-10 rounded-3xl shadow-2xl max-w-full sm:max-w-xl w-full text-center ring-1 ring-[#d4e7f8] hover:ring-[#5bb6ff] transition-all duration-300 overflow-hidden">
+        <!-- Декоративные партиклы -->
+        <span class="absolute left-3 top-2 w-6 h-6 rounded-full bg-[#5bb6ff]/50 blur-md animate-pulse z-10"></span>
+        <span class="absolute right-3 bottom-3 w-10 h-10 rounded-full bg-[#5bb6ff]/20 blur-2xl animate-pulse z-10"></span>
+
+        <img src="assets/avatar.jpg" alt="Profile"
+             class="mx-auto w-32 h-32 sm:w-36 sm:h-36 rounded-full object-cover mb-6 shadow-lg ring-4 ring-[#5bb6ff]/40" />
+        <h1 class="text-2xl sm:text-3xl font-extrabold text-[#18181b] mb-2 tracking-tight">Воложанин Владислав</h1>
+        <p class="text-[#3087e3] text-base font-medium mb-1">QA Engineer в финтех-компании</p>
+        <p class="text-[#6b7280] text-base mb-2">09.03.01 Информатика и вычислительная техника</p>
+        <p class="text-[#18181b] mb-6 leading-relaxed text-sm sm:text-base">
+          Меня зовут Владислав. Я работаю QA-инженером в финтех-компании и получаю высшее образование по направлению «Информатика и вычислительная техника».
+          Свою профессиональную деятельность я посвящаю обеспечению качества программного обеспечения, тестированию.<br>
+          Мне нравится разбираться в сложных системах, оптимизировать процессы, внедрять лучшие практики. Интересуюсь машинным обучением и современными IT-инструментами, которые делают продукты надёжнее и эффективнее.<br>
+          Открыт новым проектам, общению и обмену опытом.
+        </p>
+
+        <div class="flex flex-wrap justify-center gap-3 sm:gap-5">
+          <a href="mailto:rikimain@mail.ru"
+            class="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-[#3087e3] text-white hover:bg-[#5bb6ff] transition font-semibold shadow glow">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 opacity-80" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 12H8m8 0l-4 4m4-4l-4-4"/></svg>
+            Email
+          </a>
+          <a href="https://github.com/rikigg"
+            class="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-[#e6edf7] text-[#18181b] hover:text-[#3087e3] hover:bg-[#c9f4c5] font-medium shadow transition" target="_blank">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 opacity-80" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.477 2 2 6.486 2 12.021c0 4.424 2.865 8.177 6.839 9.504.5.093.682-.218.682-.482 0-.238-.009-.868-.014-1.703-2.782.605-3.369-1.342-3.369-1.342-.454-1.157-1.11-1.465-1.11-1.465-.908-.622.069-.609.069-.609 1.003.07 1.532 1.03 1.532 1.03.892 1.529 2.341 1.088 2.91.832.092-.646.35-1.088.636-1.339-2.221-.255-4.555-1.115-4.555-4.965 0-1.097.39-1.995 1.029-2.698-.104-.253-.447-1.274.099-2.656 0 0 .84-.27 2.75 1.026A9.563 9.563 0 0112 6.844c.85.004 1.705.115 2.505.337 1.909-1.296 2.748-1.026 2.748-1.026.548 1.382.204 2.403.1 2.656.64.703 1.028 1.601 1.028 2.698 0 3.86-2.337 4.707-4.566 4.958.359.309.678.919.678 1.852 0 1.337-.012 2.419-.012 2.75 0 .266.18.579.688.481C19.138 20.195 22 16.443 22 12.021 22 6.486 17.522 2 12 2z"/></svg>
+            GitHub
+          </a>
+          <a href="https://drive.google.com/file/d/1uGMS_Cah5ogs5KSBAyuPeLXrxTMwqLtO/view?usp=sharing"
+            class="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-[#ffb300] text-white hover:bg-[#ffa700] transition font-semibold shadow glow" target="_blank">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 opacity-80" fill="currentColor" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.762 2.239 5 5 5h14c2.762 0 5-2.238 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-10h3v10zm-1.5-11.29c-.966 0-1.75-.783-1.75-1.75 0-.967.784-1.75 1.75-1.75s1.75.783 1.75 1.75c0 .967-.784 1.75-1.75 1.75zm13.5 11.29h-3v-5.604c0-1.337-.025-3.062-1.867-3.062-1.868 0-2.154 1.459-2.154 2.969v5.697h-3v-10h2.881v1.367h.041c.402-.762 1.382-1.563 2.847-1.563 3.044 0 3.605 2.003 3.605 4.607v5.589z"/></svg>
+            CV
+          </a>
+        </div>
+      </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="relative z-20 mt-auto bg-[#f5f7fb] backdrop-blur-[6px] border-t border-[#cfe3fa] shadow-inner">
+      <div class="max-w-full sm:max-w-xl mx-auto px-4 sm:px-6 py-4 flex flex-col sm:flex-row items-center justify-between text-[#6b7280] text-sm">
+        <div class="flex items-center gap-2">
+          <svg class="w-5 h-5 text-[#5bb6ff]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" /><path d="M9 12l2 2 4-4" /></svg>
+          <span>©2025 Web-Portfolio</span>
+        </div>
+        <span class="font-semibold text-[#18181b] mt-1 sm:mt-0">Volozhanin Vladislav</span>
+      </div>
+      <div class="absolute left-0 right-0 top-0 h-[2px] bg-gradient-to-r from-transparent via-[#cfe3fa] to-[#5bb6ff] opacity-40 pointer-events-none"></div>
+    </footer>
+  </div>
+
+  <!-- JS: бургер-меню -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const burgerBtn = document.getElementById('burger-btn');
+      const mobileMenu = document.getElementById('mobile-menu');
+      const closeBtn = document.getElementById('close-menu');
+      burgerBtn.onclick = function () {
+        burgerBtn.classList.toggle('open');
+        mobileMenu.classList.toggle('hidden');
+        document.body.classList.toggle('overflow-hidden');
+      };
+      closeBtn.onclick = function () {
+        burgerBtn.classList.remove('open');
+        mobileMenu.classList.add('hidden');
+        document.body.classList.remove('overflow-hidden');
+      };
+      mobileMenu.addEventListener('click', e => {
+        if (e.target === mobileMenu) {
+          burgerBtn.classList.remove('open');
+          mobileMenu.classList.add('hidden');
+          document.body.classList.remove('overflow-hidden');
+        }
+      });
+    });
+  </script>
+  <script>
+    VANTA.NET({
+      el: "#vanta-bg",
+      mouseControls: true,
+      touchControls: true,
+      minHeight: 200.00,
+      minWidth: 200.00,
+      scale: 1.0,
+      scaleMobile: 1.0,
+      color: 0x5bb6ff,
+      backgroundColor: 0xe6edf7,
+      points: 13.0,
+      maxDistance: 21.0,
+      spacing: 17.0,
+      showDots: false
+    });
+  </script>
+</body>
+</html>

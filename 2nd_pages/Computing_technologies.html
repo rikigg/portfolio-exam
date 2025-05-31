@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <title>Модуль "Технологии и методы вычислений"</title>
+  <link rel="icon" type="image/x-icon" href="../assets/favicon.ico" />
+  <link rel="stylesheet" href="/public/styles.css" />
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin />
+  <link
+    rel="stylesheet"
+    as="style"
+    onload="this.rel='stylesheet'"
+    href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;700;900&family=Work+Sans:wght@400;700;900&display=swap"
+  />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    body {
+      font-family: 'Work Sans', 'Noto Sans', sans-serif;
+      background: #e6edf7 !important;
+    }
+    body::-webkit-scrollbar { width: 0; background: transparent; }
+    .svg-top { position:absolute; left:0; top:0; z-index:1; }
+    .svg-bottom { position:absolute; right:0; bottom:0; z-index:1; }
+    .nav-link {
+      transition: color 0.15s, background 0.22s, box-shadow 0.22s;
+      box-shadow: 0 1px 0 0 #dbeafe00;
+    }
+    .nav-link:hover, .nav-link:focus {
+      color: #3087e3 !important;
+      background: #e6edf7;
+      box-shadow: 0 3px 18px -7px #5bb6ff80;
+      text-decoration: none;
+      outline: none;
+    }
+    nav::-webkit-scrollbar { display: none; }
+    nav { -ms-overflow-style: none; scrollbar-width: none; }
+    .burger {
+      width: 32px;
+      height: 32px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 5px;
+    }
+    .burger span {
+      display: block;
+      width: 22px;
+      height: 3px;
+      background: #3087e3;
+      border-radius: 2px;
+      transition: all 0.25s;
+    }
+    .burger.open span:nth-child(1) {
+      transform: translateY(8px) rotate(45deg);
+    }
+    .burger.open span:nth-child(2) {
+      opacity: 0;
+    }
+    .burger.open span:nth-child(3) {
+      transform: translateY(-8px) rotate(-45deg);
+    }
+    @media (max-width: 768px) {
+      .main-menu {
+        display: none !important;
+      }
+      .burger {
+        display: flex !important;
+      }
+    }
+    @media (min-width: 769px) {
+      #mobile-menu { display: none !important; }
+      .main-menu { display: flex !important; }
+      .burger { display: none !important; }
+    }
+  </style>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.net.min.js"></script>
+</head>
+<body class="min-h-screen font-sans relative bg-[#e6edf7]">
+  <!-- VANTA фон -->
+  <div id="vanta-bg" class="fixed inset-0 -z-10 w-full h-full"></div>
+
+  <!-- SVG Декор -->
+  <svg class="svg-top" width="200" height="110" fill="none" viewBox="0 0 200 110">
+    <path d="M0,0 C100,40 160,30 200,110" stroke="#5bb6ff" stroke-width="3" fill="none" opacity="0.18"/>
+  </svg>
+  <svg class="svg-bottom" width="220" height="130" fill="none" viewBox="0 0 220 130">
+    <path d="M220,130 C140,60 80,90 0,0" stroke="#3087e3" stroke-width="3" fill="none" opacity="0.14"/>
+  </svg>
+
+  <div class="flex flex-col min-h-screen relative z-10">
+    <!-- Header -->
+    <header class="w-full bg-white/90 border-b border-[#cfe3fa] shadow-sm backdrop-blur-[6px] z-20">
+      <div class="max-w-7xl mx-auto flex items-center justify-center px-2 sm:px-6 py-3 relative">
+        <nav class="main-menu flex items-center justify-center gap-x-3 gap-y-2
+          overflow-x-auto whitespace-nowrap scrollbar-hide">
+          <a href="../index.html" class="nav-link text-sm sm:text-base font-semibold text-[#18181b] px-3 py-2 rounded-xl">Обо мне</a>
+          <a href="../modules.html" class="nav-link text-sm sm:text-base font-semibold text-[#18181b] px-3 py-2 rounded-xl">Учебные модули</a>
+          <a href="../graduate.html" class="nav-link text-sm sm:text-base font-semibold text-[#18181b] px-3 py-2 rounded-xl">Дипломная работа</a>
+          <a href="../cours_work.html" class="nav-link text-sm sm:text-base font-semibold text-[#18181b] px-3 py-2 rounded-xl">Курсовые работы</a>
+          <a href="../practical work.html" class="nav-link text-sm sm:text-base font-semibold text-[#18181b] px-3 py-2 rounded-xl">Практические работы</a>
+        </nav>
+        <!-- Бургер-меню -->
+        <button id="burger-btn" class="burger md:hidden ml-auto" aria-label="Открыть меню" type="button">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+      <!-- Мобильное меню -->
+      <div id="mobile-menu" class="fixed inset-0 bg-[#e6edf7]/80 z-50 flex-col items-center justify-center hidden">
+        <div class="bg-white/95 backdrop-blur-lg shadow-xl rounded-2xl py-5 px-6 mx-6 my-24 flex flex-col gap-3 w-[90vw] max-w-xs border">
+          <div class="flex items-center justify-between mb-2">
+            <span class="text-base font-bold text-[#3087e3] select-none">Меню</span>
+            <button id="close-menu" class="w-8 h-8 flex items-center justify-center rounded hover:bg-blue-100 transition" aria-label="Закрыть меню" type="button">
+              <svg class="w-6 h-6 text-[#3087e3]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+              </svg>
+            </button>
+          </div>
+          <a href="../index.html" class="nav-link text-base font-semibold text-[#18181b] px-3 py-2 rounded-xl">Обо мне</a>
+          <a href="../modules.html" class="nav-link text-base font-semibold text-[#18181b] px-3 py-2 rounded-xl">Учебные модули</a>
+          <a href="../graduate.html" class="nav-link text-base font-semibold text-[#18181b] px-3 py-2 rounded-xl">Дипломная работа</a>
+          <a href="../cours_work.html" class="nav-link text-base font-semibold text-[#18181b] px-3 py-2 rounded-xl">Курсовые работы</a>
+          <a href="../practical work.html" class="nav-link text-base font-semibold text-[#18181b] px-3 py-2 rounded-xl">Практические работы</a>
+        </div>
+      </div>
+    </header>
+    <!-- /Header -->
+
+    <!-- Content -->
+    <main class="flex-1 flex flex-col items-center px-4 py-10">
+      <section class="relative bg-[#f5f7fb] p-6 sm:p-8 rounded-3xl shadow-2xl max-w-2xl w-full ring-1 ring-[#d4e7f8] hover:ring-[#5bb6ff] transition-all duration-300 overflow-hidden">
+        <div class="flex flex-col items-center mb-8">
+          <img src="../assets/folder.png" alt="Технологии и методы вычислений" class="w-28 h-28 object-cover rounded-2xl shadow mb-4" />
+          <h1 class="text-2xl md:text-3xl font-bold text-[#18181b] mb-2 text-center">Модуль "Технологии и методы вычислений"</h1>
+        </div>
+        <div class="flex flex-col gap-5">
+            <h2 class="text-lg font-semibold mb-4 text-blue-700 text-center">Анализ данных и основы Data science</h2>
+
+            <div class="bg-[#f5f6fa] p-5 rounded-2xl shadow flex flex-col md:flex-row items-center gap-4 hover:shadow-lg transition">
+              <img src="../assets/github.png" alt="Теория графов" class="w-16 h-16 object-cover rounded-xl shadow" />
+              <div class="flex-1 text-center md:text-left">
+                <span class="block text-base md:text-lg font-medium text-[#18181b]">Лабораторная работа №1</span>
+                <a href="https://github.com/rikigg/portfolio-/blob/main/Модуль%20Технологии%20и%20методы%20вычислений/Анализ%20данных%20и%20основы%20Data%20science/Воложанин%20В.О.%20ЛР%201.xlsx" target="_blank"
+                   class="inline-block mt-1 text-sm text-blue-700 hover:underline">GitHub репозиторий</a>
+              </div>
+            </div>
+
+            <div class="bg-[#f5f6fa] p-5 rounded-2xl shadow flex flex-col md:flex-row items-center gap-4 hover:shadow-lg transition">
+              <img src="../assets/github.png" alt="Теория графов" class="w-16 h-16 object-cover rounded-xl shadow" />
+              <div class="flex-1 text-center md:text-left">
+                <span class="block text-base md:text-lg font-medium text-[#18181b]">Лабораторная работа №2</span>
+                <a href="https://github.com/rikigg/portfolio-/blob/main/Модуль%20Технологии%20и%20методы%20вычислений/Анализ%20данных%20и%20основы%20Data%20science/Воложанин%20В.О.%20ЛР%202.pdf" target="_blank"
+                   class="inline-block mt-1 text-sm text-blue-700 hover:underline">GitHub репозиторий</a>
+              </div>
+            </div>
+
+            <div class="bg-[#f5f6fa] p-5 rounded-2xl shadow flex flex-col md:flex-row items-center gap-4 hover:shadow-lg transition">
+              <img src="../assets/github.png" alt="Теория графов" class="w-16 h-16 object-cover rounded-xl shadow" />
+              <div class="flex-1 text-center md:text-left">
+                <span class="block text-base md:text-lg font-medium text-[#18181b]">Лабораторная работа №3</span>
+                <a href="https://github.com/rikigg/portfolio-/blob/main/Модуль%20Технологии%20и%20методы%20вычислений/Анализ%20данных%20и%20основы%20Data%20science/Воложанин%20В.О.%20ЛР%203.pdf" target="_blank"
+                   class="inline-block mt-1 text-sm text-blue-700 hover:underline">GitHub репозиторий</a>
+              </div>
+            </div>
+
+            <div class="bg-[#f5f6fa] p-5 rounded-2xl shadow flex flex-col md:flex-row items-center gap-4 hover:shadow-lg transition">
+              <img src="../assets/github.png" alt="Теория графов" class="w-16 h-16 object-cover rounded-xl shadow" />
+              <div class="flex-1 text-center md:text-left">
+                <span class="block text-base md:text-lg font-medium text-[#18181b]">Лабораторная работа №4</span>
+                <a href="https://github.com/rikigg/portfolio-/blob/main/Модуль%20Технологии%20и%20методы%20вычислений/Анализ%20данных%20и%20основы%20Data%20science/Воложанин%20В.О.%20ЛР%204.pdf" target="_blank"
+                   class="inline-block mt-1 text-sm text-blue-700 hover:underline">GitHub репозиторий</a>
+              </div>
+            </div>
+
+            <div class="bg-[#f5f6fa] p-5 rounded-2xl shadow flex flex-col md:flex-row items-center gap-4 hover:shadow-lg transition">
+              <img src="../assets/github.png" alt="Теория графов" class="w-16 h-16 object-cover rounded-xl shadow" />
+              <div class="flex-1 text-center md:text-left">
+                <span class="block text-base md:text-lg font-medium text-[#18181b]">Лабораторная работа №5</span>
+                <a href="https://github.com/rikigg/portfolio-/blob/main/Модуль%20Технологии%20и%20методы%20вычислений/Анализ%20данных%20и%20основы%20Data%20science/Воложанин%20В.О.%20ЛР%205.pdf" target="_blank"
+                   class="inline-block mt-1 text-sm text-blue-700 hover:underline">GitHub репозиторий</a>
+              </div>
+            </div>
+
+            <div class="bg-[#f5f6fa] p-5 rounded-2xl shadow flex flex-col md:flex-row items-center gap-4 hover:shadow-lg transition">
+              <img src="../assets/github.png" alt="Теория графов" class="w-16 h-16 object-cover rounded-xl shadow" />
+              <div class="flex-1 text-center md:text-left">
+                <span class="block text-base md:text-lg font-medium text-[#18181b]">Лабораторная работа №6</span>
+                <a href="https://github.com/rikigg/portfolio-/blob/main/Модуль%20Технологии%20и%20методы%20вычислений/Анализ%20данных%20и%20основы%20Data%20science/Воложанин%20В.О.%20ЛР%206.pdf" target="_blank"
+                   class="inline-block mt-1 text-sm text-blue-700 hover:underline">GitHub репозиторий</a>
+              </div>
+            </div>
+
+            <div class="bg-[#f5f6fa] p-5 rounded-2xl shadow flex flex-col md:flex-row items-center gap-4 hover:shadow-lg transition">
+              <img src="../assets/github.png" alt="Теория графов" class="w-16 h-16 object-cover rounded-xl shadow" />
+              <div class="flex-1 text-center md:text-left">
+                <span class="block text-base md:text-lg font-medium text-[#18181b]">Лабораторная работа №11</span>
+                <a href="https://github.com/rikigg/portfolio-/blob/main/Модуль%20Технологии%20и%20методы%20вычислений/Анализ%20данных%20и%20основы%20Data%20science/Воложанин%20В.О.%20ЛР%2011.pdf" target="_blank"
+                   class="inline-block mt-1 text-sm text-blue-700 hover:underline">GitHub репозиторий</a>
+              </div>
+            </div>
+
+            <div class="bg-[#f5f6fa] p-5 rounded-2xl shadow flex flex-col md:flex-row items-center gap-4 hover:shadow-lg transition">
+              <img src="../assets/github.png" alt="Теория графов" class="w-16 h-16 object-cover rounded-xl shadow" />
+              <div class="flex-1 text-center md:text-left">
+                <span class="block text-base md:text-lg font-medium text-[#18181b]">Индивидуальная задача</span>
+                <a href="https://github.com/rikigg/portfolio-/blob/main/Модуль%20Технологии%20и%20методы%20вычислений/Анализ%20данных%20и%20основы%20Data%20science/Воложанин%20В.О.%20индивидуальная_задача.pdf" target="_blank"
+                   class="inline-block mt-1 text-sm text-blue-700 hover:underline">GitHub репозиторий</a>
+              </div>
+            </div>
+
+            <!-- предмет -->
+            <h2 class="text-lg font-semibold mb-4 text-blue-700 text-center">Технологии компьютерного моделирования</h2>
+
+            <div class="bg-[#f5f6fa] p-5 rounded-2xl shadow flex flex-col md:flex-row items-center gap-4 hover:shadow-lg transition">
+              <img src="../assets/github.png" alt="Теория графов" class="w-16 h-16 object-cover rounded-xl shadow" />
+              <div class="flex-1 text-center md:text-left">
+                <span class="block text-base md:text-lg font-medium text-[#18181b]">Лабораторная работа №1</span>
+                <a href="https://github.com/rikigg/portfolio-/blob/main/Модуль%20Технологии%20и%20методы%20вычислений/Технологии%20компьютерного%20моделирования/работы/Воложанин%20В.О.%20ЛР%201.pdf" target="_blank"
+                   class="inline-block mt-1 text-sm text-blue-700 hover:underline">GitHub репозиторий</a>
+              </div>
+            </div>
+
+            <div class="bg-[#f5f6fa] p-5 rounded-2xl shadow flex flex-col md:flex-row items-center gap-4 hover:shadow-lg transition">
+              <img src="../assets/github.png" alt="Теория графов" class="w-16 h-16 object-cover rounded-xl shadow" />
+              <div class="flex-1 text-center md:text-left">
+                <span class="block text-base md:text-lg font-medium text-[#18181b]">Лабораторная работа №2</span>
+                <a href="https://github.com/rikigg/portfolio-/blob/main/Модуль%20Технологии%20и%20методы%20вычислений/Технологии%20компьютерного%20моделирования/работы/Воложанин%20В.О.%20ЛР%202.pdf" target="_blank"
+                   class="inline-block mt-1 text-sm text-blue-700 hover:underline">GitHub репозиторий</a>
+              </div>
+            </div>
+
+            <div class="bg-[#f5f6fa] p-5 rounded-2xl shadow flex flex-col md:flex-row items-center gap-4 hover:shadow-lg transition">
+              <img src="../assets/github.png" alt="Теория графов" class="w-16 h-16 object-cover rounded-xl shadow" />
+              <div class="flex-1 text-center md:text-left">
+                <span class="block text-base md:text-lg font-medium text-[#18181b]">Лабораторная работа №5</span>
+                <a href="https://github.com/rikigg/portfolio-/blob/main/Модуль%20Технологии%20и%20методы%20вычислений/Технологии%20компьютерного%20моделирования/работы/Воложанин%20В.О.%20ЛР%205.pdf" target="_blank"
+                   class="inline-block mt-1 text-sm text-blue-700 hover:underline">GitHub репозиторий</a>
+              </div>
+            </div>
+
+            <div class="bg-[#f5f6fa] p-5 rounded-2xl shadow flex flex-col md:flex-row items-center gap-4 hover:shadow-lg transition">
+              <img src="../assets/github.png" alt="Теория графов" class="w-16 h-16 object-cover rounded-xl shadow" />
+              <div class="flex-1 text-center md:text-left">
+                <span class="block text-base md:text-lg font-medium text-[#18181b]">Индивидуальная работа</span>
+                <a href="https://github.com/rikigg/portfolio-/blob/main/Модуль%20Технологии%20и%20методы%20вычислений/Технологии%20компьютерного%20моделирования/работы/Воложанин%20В.О.%20ИВТ%202.1%20индивидуальная%20работа.pdf" target="_blank"
+                   class="inline-block mt-1 text-sm text-blue-700 hover:underline">GitHub репозиторий</a>
+              </div>
+            </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="relative z-20 mt-auto bg-[#f5f7fb] backdrop-blur-[6px] border-t border-[#cfe3fa] shadow-inner">
+      <div class="max-w-full sm:max-w-xl mx-auto px-4 sm:px-6 py-4 flex flex-col sm:flex-row items-center justify-between text-[#6b7280] text-sm">
+        <div class="flex items-center gap-2">
+          <svg class="w-5 h-5 text-[#5bb6ff]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" /><path d="M9 12l2 2 4-4" /></svg>
+          <span>©2025 Web-Portfolio</span>
+        </div>
+        <span class="font-semibold text-[#18181b] mt-1 sm:mt-0">Volozhanin Vladislav</span>
+      </div>
+      <div class="absolute left-0 right-0 top-0 h-[2px] bg-gradient-to-r from-transparent via-[#cfe3fa] to-[#5bb6ff] opacity-40 pointer-events-none"></div>
+    </footer>
+  </div>
+
+  <!-- JS: бургер-меню -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const burgerBtn = document.getElementById('burger-btn');
+      const mobileMenu = document.getElementById('mobile-menu');
+      const closeBtn = document.getElementById('close-menu');
+      burgerBtn.onclick = function () {
+        burgerBtn.classList.toggle('open');
+        mobileMenu.classList.toggle('hidden');
+        document.body.classList.toggle('overflow-hidden');
+      };
+      closeBtn.onclick = function () {
+        burgerBtn.classList.remove('open');
+        mobileMenu.classList.add('hidden');
+        document.body.classList.remove('overflow-hidden');
+      };
+      mobileMenu.addEventListener('click', e => {
+        if (e.target === mobileMenu) {
+          burgerBtn.classList.remove('open');
+          mobileMenu.classList.add('hidden');
+          document.body.classList.remove('overflow-hidden');
+        }
+      });
+    });
+  </script>
+  <script>
+    VANTA.NET({
+      el: "#vanta-bg",
+      mouseControls: true,
+      touchControls: true,
+      minHeight: 200.00,
+      minWidth: 200.00,
+      scale: 1.0,
+      scaleMobile: 1.0,
+      color: 0x5bb6ff,
+      backgroundColor: 0xe6edf7,
+      points: 13.0,
+      maxDistance: 21.0,
+      spacing: 17.0,
+      showDots: false
+    });
+  </script>
+</body>
+</html>
