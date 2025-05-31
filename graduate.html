@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Дипломная работа</title>
+    <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+    <link rel="stylesheet" href="styles.css" />
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin />
+    <link
+      rel="stylesheet"
+      as="style"
+      onload="this.rel='stylesheet'"
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;700;900&family=Work+Sans:wght@400;700;900&display=swap"
+    />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+      body {
+        font-family: 'Work Sans', 'Noto Sans', sans-serif;
+        background: linear-gradient(120deg, #e0eafc 0%, #cfdef3 100%);
+      }
+    </style>
+  </head>
+  <body class="min-h-screen font-sans">
+    <div class="flex flex-col min-h-screen">
+      <!-- Header (такой же как на главной) -->
+      <header class="flex items-center justify-between border-b border-[#ededed] px-8 py-6 min-h-[50px] bg-white/90 shadow-sm backdrop-blur-sm relative">
+        <div class="flex-1"></div>
+        <!-- Центрированное меню -->
+        <nav class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 flex gap-7">
+          <a class="flex items-center justify-center whitespace-nowrap text-sm font-semibold hover:text-blue-700 hover:bg-blue-50 rounded-xl px-4 py-2 transition"
+            href="index.html">Обо мне</a>
+          <a class="flex items-center justify-center whitespace-nowrap text-sm font-semibold hover:text-blue-700 hover:bg-blue-50 rounded-xl px-4 py-2 transition"
+            href="modules.html">Учебные модули</a>
+          <a class="flex items-center justify-center whitespace-nowrap text-sm font-semibold hover:text-blue-700 hover:bg-blue-50 rounded-xl px-4 py-2 transition"
+            href="graduate.html">Дипломная работа</a>
+          <a class="flex items-center justify-center whitespace-nowrap text-sm font-semibold hover:text-blue-700 hover:bg-blue-50 rounded-xl px-4 py-2 transition"
+            href="cours_work.html">Курсовые работы</a>
+          <a class="flex items-center justify-center whitespace-nowrap text-sm font-semibold hover:text-blue-700 hover:bg-blue-50 rounded-xl px-4 py-2 transition"
+            href="practical work.html">Практические работы</a>
+        </nav>
+      </header>
+
+      <main class="flex-1 flex flex-col items-center py-10 px-4">
+        <section class="bg-white/90 rounded-3xl shadow-2xl p-10 max-w-5xl w-full transition-all duration-300 ring-1 ring-[#e2e8f0] hover:ring-blue-200">
+          <h1 class="text-3xl font-bold mb-10 text-center text-[#18181b] tracking-tight">Дипломная работа</h1>
+          <div class="flex w-full h-full items-center justify-center">
+
+            <div class="bg-[#f5f6fa] p-8 rounded-3xl shadow-lg hover:shadow-2xl transition-all duration-300 w-full max-w-xl mx-auto flex flex-col items-center justify-center group cursor-pointer">
+              <a href="https://github.com/rikigg/portfolio-/blob/main/диплом/диплом.pdf"
+                class="flex flex-col items-center justify-center w-full h-full text-center group focus:outline-none focus:ring-2 focus:ring-blue-400 transition">
+                <div class="w-full flex justify-center items-center" style="aspect-ratio: 0.71;">
+                  <img
+                    src="assets/диплом.png"
+                    alt="Диплом"
+                    class="w-full h-full object-contain rounded-2xl shadow group-hover:scale-105 transition-transform duration-300 bg-white"
+                    style="aspect-ratio: 0.71;"
+                  />
+                </div>
+                <div class="w-full flex items-end justify-center flex-grow">
+                  <span class="block w-full mt-8 px-2 text-base sm:text-lg md:text-xl text-[#18181b] group-hover:text-blue-700 group-hover:underline transition-colors duration-200 font-semibold leading-snug tracking-tight text-center">
+                    Выпускная квалификационная работа
+                    <span class="block font-normal text-sm sm:text-base md:text-lg text-neutral-600 mt-2">
+                      "Использование машинного обучения для анализа эффективности цифровизации учебного процесса"
+                    </span>
+                  </span>
+                </div>
+              </a>
+            </div>
+
+
+
+
+
+
+          </div>
+        </section>
+
+      </main>
+
+      <footer class="w-full mt-auto bg-white/80 backdrop-blur shadow-inner border-t border-[#ededed]">
+      <div class="max-w-xl mx-auto px-6 py-4 flex flex-col sm:flex-row items-center justify-between text-neutral-400 text-sm">
+        <span>©2025 Web-Portfolio</span>
+        <span class="font-semibold text-[#18181b] mt-1 sm:mt-0">Volozhanin Vladislav</span>
+      </div>
+    </footer>
+
+    </div>
+  </body>
+</html>
