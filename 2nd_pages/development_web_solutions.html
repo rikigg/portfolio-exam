@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <title>Модуль "Проектирование и разработка веб-решений"</title>
+  <link rel="icon" type="image/x-icon" href="../assets/favicon.ico" />
+  <link rel="stylesheet" href="../styles.css" />
+  <script src="../main.js"></script>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;700;900&family=Work+Sans:wght@400;700;900&display=swap" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!-- VANTA/THREE -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.net.min.js"></script>
+</head>
+<body class="min-h-screen font-sans relative bg-[#e6edf7]">
+
+  <!-- LOADER -->
+  <div id="loader" class="fixed inset-0 z-[9999] flex items-center justify-center bg-[#e6edf7] transition-opacity duration-500">
+    <div class="flex flex-col items-center">
+      <div class="w-16 h-16 border-4 border-blue-400 border-t-transparent rounded-full animate-spin mb-4"></div>
+      <span class="text-blue-600 text-lg font-semibold tracking-wide animate-pulse">Загрузка...</span>
+    </div>
+  </div>
+
+  <!-- Skip-link for accessibility -->
+  <a href="#main" class="skip-link">К основному контенту</a>
+
+  <!-- VANTA фон -->
+  <div id="vanta-bg" class="fixed inset-0 -z-10 w-full h-full"></div>
+  <!-- SVG декор -->
+  <svg class="svg-top" width="200" height="110" fill="none" viewBox="0 0 200 110">
+    <path d="M0,0 C100,40 160,30 200,110" stroke="#5bb6ff" stroke-width="3" fill="none" opacity="0.18"/>
+  </svg>
+  <svg class="svg-bottom" width="220" height="130" fill="none" viewBox="0 0 220 130">
+    <path d="M220,130 C140,60 80,90 0,0" stroke="#3087e3" stroke-width="3" fill="none" opacity="0.14"/>
+  </svg>
+
+  <div class="flex flex-col min-h-screen relative z-10">
+    <!-- Header -->
+    <header class="w-full bg-white/90 border-b border-[#cfe3fa] shadow-sm backdrop-blur-[6px] z-20">
+      <div class="max-w-7xl mx-auto flex items-center justify-center px-2 sm:px-6 py-3 relative">
+        <nav class="main-menu flex items-center justify-center gap-x-3 gap-y-2 overflow-x-auto whitespace-nowrap scrollbar-hide">
+          <a href="../index.html" class="nav-link text-sm sm:text-base font-semibold text-[#18181b] px-3 py-2 rounded-xl">Обо мне</a>
+          <a href="../modules.html" class="nav-link text-sm sm:text-base font-semibold text-[#18181b] px-3 py-2 rounded-xl">Учебные модули</a>
+          <a href="../graduate.html" class="nav-link text-sm sm:text-base font-semibold text-[#18181b] px-3 py-2 rounded-xl">Дипломная работа</a>
+          <a href="../cours_work.html" class="nav-link text-sm sm:text-base font-semibold text-[#18181b] px-3 py-2 rounded-xl">Курсовые работы</a>
+          <a href="../practical work.html" class="nav-link text-sm sm:text-base font-semibold text-[#18181b] px-3 py-2 rounded-xl">Практические работы</a>
+        </nav>
+        <!-- Бургер-меню -->
+        <button id="burger-btn" class="burger md:hidden ml-auto" aria-label="Открыть меню" type="button">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+      <!-- Мобильное меню -->
+      <div id="mobile-menu" class="fixed inset-0 bg-[#e6edf7]/80 z-50 flex flex-col items-center justify-center hidden">
+        <div class="bg-white/95 backdrop-blur-lg shadow-xl rounded-2xl py-5 px-4 my-8 mx-auto w-[95vw] max-w-xs flex flex-col gap-3 border">
+          <div class="flex items-center justify-between mb-2">
+            <span class="text-base font-bold text-[#3087e3] select-none">Меню</span>
+            <button id="close-menu" class="w-8 h-8 flex items-center justify-center rounded hover:bg-blue-100 transition" aria-label="Закрыть меню" type="button">
+              <svg class="w-6 h-6 text-[#3087e3]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+              </svg>
+            </button>
+          </div>
+          <a href="../index.html" class="nav-link text-base font-semibold text-[#18181b] px-3 py-2 rounded-xl">Обо мне</a>
+          <a href="../modules.html" class="nav-link text-base font-semibold text-[#18181b] px-3 py-2 rounded-xl">Учебные модули</a>
+          <a href="../graduate.html" class="nav-link text-base font-semibold text-[#18181b] px-3 py-2 rounded-xl">Дипломная работа</a>
+          <a href="../cours_work.html" class="nav-link text-base font-semibold text-[#18181b] px-3 py-2 rounded-xl">Курсовые работы</a>
+          <a href="../practical work.html" class="nav-link text-base font-semibold text-[#18181b] px-3 py-2 rounded-xl">Практические работы</a>
+        </div>
+      </div>
+    </header>
+    <!-- /Header -->
+
+    <!-- Content -->
+    <main id="main" class="flex-1 flex flex-col items-center px-4 py-10">
+      <section class="relative bg-[#f5f7fb] p-6 sm:p-10 rounded-3xl shadow-2xl max-w-2xl w-full ring-1 ring-[#d4e7f8] hover:ring-[#5bb6ff] transition-all duration-300 overflow-hidden fade-in-up">
+        <!-- Декоративные партиклы -->
+        <span class="absolute left-3 top-2 w-6 h-6 rounded-full bg-[#5bb6ff]/50 blur-md animate-pulse z-10"></span>
+        <span class="absolute right-3 bottom-3 w-10 h-10 rounded-full bg-[#5bb6ff]/20 blur-2xl animate-pulse z-10"></span>
+        <div class="flex flex-col items-center mb-8">
+          <img src="../assets/folder.png" alt="Проектирование и разработка веб-решений" class="w-28 h-28 object-cover rounded-2xl shadow mb-4 icon-animate" />
+          <h1 class="text-2xl md:text-3xl font-extrabold text-[#18181b] mb-2 text-center">Модуль "Проектирование и разработка веб-решений"</h1>
+        </div>
+        <div class="flex flex-col gap-5">
+          <div class="bg-[#f5f6fa] p-5 rounded-2xl shadow-md hover:shadow-2xl transition-all duration-300 flex flex-col md:flex-row items-center gap-4 group cursor-pointer btn-ripple fade-in-up">
+            <img src="../assets/github.png" alt="Веб-программирование" class="w-16 h-16 object-cover rounded-xl shadow icon-animate" />
+            <div class="flex-1 text-center md:text-left">
+              <span class="block text-base md:text-lg font-medium text-[#18181b]">Лабораторная работа №1</span>
+              <a href="https://replit.com/repls/folder/Web-programming%201" target="_blank" class="inline-block mt-1 text-sm text-blue-700 hover:underline">Ссылка на Replit</a>
+            </div>
+          </div>
+          <div class="bg-[#f5f6fa] p-5 rounded-2xl shadow-md hover:shadow-2xl transition-all duration-300 flex flex-col md:flex-row items-center gap-4 group cursor-pointer btn-ripple fade-in-up">
+            <img src="../assets/github.png" alt="Веб-программирование" class="w-16 h-16 object-cover rounded-xl shadow icon-animate" />
+            <div class="flex-1 text-center md:text-left">
+              <span class="block text-base md:text-lg font-medium text-[#18181b]">Лабораторная работа №2</span>
+              <a href="https://replit.com/@riki163/Laboratory-work-2" target="_blank" class="inline-block mt-1 text-sm text-blue-700 hover:underline">Ссылка на Replit</a>
+            </div>
+          </div>
+          <div class="bg-[#f5f6fa] p-5 rounded-2xl shadow-md hover:shadow-2xl transition-all duration-300 flex flex-col md:flex-row items-center gap-4 group cursor-pointer btn-ripple fade-in-up">
+            <img src="../assets/github.png" alt="Веб-программирование" class="w-16 h-16 object-cover rounded-xl shadow icon-animate" />
+            <div class="flex-1 text-center md:text-left">
+              <span class="block text-base md:text-lg font-medium text-[#18181b]">Лабораторная работа №3</span>
+              <a href="https://replit.com/@riki163/LR-3" target="_blank" class="inline-block mt-1 text-sm text-blue-700 hover:underline">Ссылка на Replit</a>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="relative z-20 mt-auto bg-[#f5f7fb] backdrop-blur-[6px] border-t border-[#cfe3fa] shadow-inner">
+      <div class="max-w-full sm:max-w-xl mx-auto px-4 sm:px-6 py-4 flex flex-col sm:flex-row items-center justify-between text-[#6b7280] text-sm">
+        <div class="flex items-center gap-2">
+          <svg class="w-5 h-5 text-[#5bb6ff]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" /><path d="M9 12l2 2 4-4" /></svg>
+          <span>©2025 Web-Portfolio</span>
+        </div>
+        <span class="font-semibold text-[#18181b] mt-1 sm:mt-0">Volozhanin Vladislav</span>
+      </div>
+      <div class="absolute left-0 right-0 top-0 h-[2px] bg-gradient-to-r from-transparent via-[#cfe3fa] to-[#5bb6ff] opacity-40 pointer-events-none"></div>
+    </footer>
+  </div>
+
+  <!-- Главный кастомный JS для всего портфолио -->
+  <script src="/public/main.js"></script>
+</body>
+</html>
